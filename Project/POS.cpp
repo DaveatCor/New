@@ -151,9 +151,6 @@ void page2 () {
 	setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
 	bar ( 770, 492, 1040, 520 );
 	
-	setfillstyle ( SOLID_FILL, RED );
-	bar ( 790, 40, 1020, 150 );
-	
 }
 
 void button_page_2 () {
@@ -1146,6 +1143,48 @@ void Smoothie () {
 	SmoothieText ();
 }
 
+void clickCold () {
+	setcolor ( WHITE );
+	rectangle ( 90, 45, 206, 141 );
+	rectangle ( 90, 45, 205, 140 );
+	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
+	bar ( 90, 45, 205, 140 );
+	
+	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setcolor ( BLACK );
+	settextstyle ( 3, HORIZ_DIR, 1 );
+	outtextxy ( 145, 70, "1" );
+	outtextxy ( 110, 90, "Cold drink" );
+}
+
+void clickHot () {	
+	setcolor ( WHITE );
+	rectangle ( 215, 45, 331, 141 );
+	rectangle ( 215, 45, 330, 140 );
+	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
+	bar ( 215, 45, 330, 140 );
+	
+	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setcolor ( BLACK );
+	settextstyle ( 3, HORIZ_DIR, 1 );
+	outtextxy ( 270, 70, "2" );
+	outtextxy ( 240, 90, "Hot drink" );
+}
+
+void clickFrappe () {
+	setcolor ( WHITE );
+	rectangle ( 340, 45, 456, 141 );
+	rectangle ( 340, 45, 455, 140 );
+	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
+	bar ( 340, 45, 455, 140 );
+	
+	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setcolor ( BLACK );
+	settextstyle ( 3, HORIZ_DIR, 1 );
+	outtextxy ( 395, 70, "3" );
+	outtextxy ( 375, 90, "Frappe" );
+}
+
 main () {
 	initwindow ( 1050, 630, "POS", 30, 5 );
 	int page=1;
@@ -1166,6 +1205,7 @@ main () {
 	
 	setactivepage( 1 );
 	setvisualpage( 1 ); 
+	clickCold ();
 	
 	while ( true ) {
 		
@@ -1217,20 +1257,20 @@ main () {
 		}
 		getmouseclick ( WM_LBUTTONDOWN, posX, posY );
 		if ( page == 1 ) {
-//			if ( total == 0 ) {
-//				setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
-//				bar ( 770, 35, 1040, 487 );
-//				outtextxy ( 913, 497, "       " );
-//				settextstyle( 8, HORIZ_DIR, 1 );
-//				setcolor( RED );
-//				setbkcolor ( COLOR ( 192, 192, 192 ) );
-//				outtextxy ( 990 , 497, floatToString( total ) );
-//				
-//				settextstyle( 10, HORIZ_DIR, 1 );
-//				setbkcolor ( COLOR ( 192, 192, 192 ) );
-//				setcolor ( BLUE );
-//				outtextxy ( 775, 497, "Sub Total($)" );
-//			}
+			if ( total == 0 ) {
+				setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
+				bar ( 770, 35, 1040, 487 );
+				outtextxy ( 913, 497, "       " );
+				settextstyle( 8, HORIZ_DIR, 1 );
+				setcolor( RED );
+				setbkcolor ( COLOR ( 192, 192, 192 ) );
+				outtextxy ( 990 , 497, floatToString( total ) );
+				
+				settextstyle( 10, HORIZ_DIR, 1 );
+				setbkcolor ( COLOR ( 192, 192, 192 ) );
+				setcolor ( BLUE );
+				outtextxy ( 775, 497, "Sub Total($)" );
+			}
 			for ( int i = 0; i < table_index; i++ ) {
 				Total ( i );
 			}
@@ -1238,10 +1278,12 @@ main () {
 				page = 2;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickHot ();
 			} else if ( posX >= 340 && posX <= 456 && posY >= 45 && posY <= 140 ) { // frappe
 				page = 3;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickFrappe ();
 			} else if ( posX >= 465 && posX <= 580 && posY >= 45 && posY <= 140 ) { // smoothie
 				page = 4;
 				setactivepage ( page );
@@ -1289,10 +1331,12 @@ main () {
 				page = 1;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickCold ();
 			} else if ( posX >= 340 && posX <= 456 && posY >= 45 && posY <= 140 ) { // frappe
 				page = 3;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickFrappe ();
 			} else if ( posX >= 465 && posX <= 580 && posY >= 45 && posY <= 140 ) { // smoothie
 				page = 4;
 				setactivepage ( page );
@@ -1340,10 +1384,12 @@ main () {
 				page = 2;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickHot ();
 			} else if ( posX >= 90 && posX <= 206 && posY >= 45 && posY <= 140 ) { // Cold
 				page = 1;
 				setactivepage ( page );
 				setvisualpage ( page );
+				clickCold ();
 			} else if ( posX >= 465 && posX <= 580 && posY >= 45 && posY <= 140 ) { // smoothie
 				page = 4;
 				setactivepage ( page );
