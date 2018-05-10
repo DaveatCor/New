@@ -16,6 +16,7 @@ int table_index = 0;
 double total = 0;
 int x = 775;
 int y = 40;
+int test = 0;
 
 void textsize(); 
 void Total( int );
@@ -151,6 +152,10 @@ void page2 () {
 	setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
 	bar ( 770, 492, 1040, 520 );
 	
+	//For delete
+//	setfillstyle ( SOLID_FILL, RED );
+//	bar ( 790, 40, 1020, 150 );
+	
 }
 
 void button_page_2 () {
@@ -158,8 +163,8 @@ void button_page_2 () {
 	int y = 165, y2 = 255;
 	//bar of cold drink
 	setcolor ( COLOR ( 49, 49, 49 ) );
-	rectangle ( 90, 45, 206, 141 );
-	rectangle ( 90, 45, 205, 140 );
+	rectangle ( 90, 46, 206, 141 );
+	rectangle ( 90, 46, 205, 140 );
 	setfillstyle ( SOLID_FILL, COLOR ( 177, 177, 177 ) );
 	bar ( 90, 45, 205, 140 );
 	
@@ -955,12 +960,13 @@ void tender () {
 							 << product[ i ].productSize << "  "
 							 << product[ i ].price << "$" << endl;
 					}
-					fout << "DailySale: "<< total << " $";
+					fout << "\nTotalSale: "<< total << " $\n";
 					fout.close();
 					total *= 0;
 					change *= 0;
 					DisplayTotal ( 1 );
 					table_index = 0;
+					test = 1;
 					break;
 				}
 			// click on cancel
@@ -1145,26 +1151,26 @@ void Smoothie () {
 
 void clickCold () {
 	setcolor ( WHITE );
-	rectangle ( 90, 45, 206, 141 );
-	rectangle ( 90, 45, 205, 140 );
-	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
-	bar ( 90, 45, 205, 140 );
+	rectangle ( 90, 46, 206, 141 );
+	rectangle ( 90, 46, 205, 140 );
+	setfillstyle( SOLID_FILL, COLOR ( 197, 197, 197 ) );
+	bar ( 91, 46, 205, 140 );
 	
-	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setbkcolor ( COLOR ( 197, 197, 197 ) );
 	setcolor ( BLACK );
 	settextstyle ( 3, HORIZ_DIR, 1 );
 	outtextxy ( 145, 70, "1" );
 	outtextxy ( 110, 90, "Cold drink" );
 }
 
-void clickHot () {	
+void clickHot () {
 	setcolor ( WHITE );
 	rectangle ( 215, 45, 331, 141 );
 	rectangle ( 215, 45, 330, 140 );
-	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
+	setfillstyle( SOLID_FILL, COLOR ( 197, 197, 197 ) );
 	bar ( 215, 45, 330, 140 );
 	
-	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setbkcolor ( COLOR ( 197, 197, 197 ) );
 	setcolor ( BLACK );
 	settextstyle ( 3, HORIZ_DIR, 1 );
 	outtextxy ( 270, 70, "2" );
@@ -1175,10 +1181,10 @@ void clickFrappe () {
 	setcolor ( WHITE );
 	rectangle ( 340, 45, 456, 141 );
 	rectangle ( 340, 45, 455, 140 );
-	setfillstyle ( SOLID_FILL, COLOR ( 201, 201, 201 ) );
+	setfillstyle( SOLID_FILL, COLOR ( 197, 197, 197 ) );
 	bar ( 340, 45, 455, 140 );
 	
-	setbkcolor ( COLOR ( 201, 201, 201 ) );
+	setbkcolor ( COLOR ( 197, 197, 197 ) );
 	setcolor ( BLACK );
 	settextstyle ( 3, HORIZ_DIR, 1 );
 	outtextxy ( 395, 70, "3" );
@@ -1257,7 +1263,7 @@ main () {
 		}
 		getmouseclick ( WM_LBUTTONDOWN, posX, posY );
 		if ( page == 1 ) {
-			if ( total == 0 ) {
+			if ( test == 1 ) {
 				setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
 				bar ( 770, 35, 1040, 487 );
 				outtextxy ( 913, 497, "       " );
@@ -1270,16 +1276,19 @@ main () {
 				setbkcolor ( COLOR ( 192, 192, 192 ) );
 				setcolor ( BLUE );
 				outtextxy ( 775, 497, "Sub Total($)" );
+				test = 0;
 			}
 			for ( int i = 0; i < table_index; i++ ) {
 				Total ( i );
 			}
 			if ( posX >= 215 && posX <= 330 && posY >= 45 && posY <= 140 ) { // Hot
+				test = 1;
 				page = 2;
 				setactivepage ( page );
 				setvisualpage ( page );
 				clickHot ();
 			} else if ( posX >= 340 && posX <= 456 && posY >= 45 && posY <= 140 ) { // frappe
+				test = 1;
 				page = 3;
 				setactivepage ( page );
 				setvisualpage ( page );
@@ -1308,9 +1317,11 @@ main () {
 				beveragesize ( table_index, 6 );
 			} else if ( posX >= 650 && posX <= 758 && posY >= 530 && posY <= 620 ) { // tender
 				tender ();
-			}
+			} else if ( posX >= 90 && posX <= 206 && posY >= 45 && posY <= 140 ) { // Cold
+				clickCold ();
+			} 
 		} else if ( page == 2 ) { // Hot
-			if ( total == 0 ) {
+			if ( test == 1 ) {
 				setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
 				bar ( 770, 35, 1040, 487 );
 				outtextxy ( 913, 497, "       " );
@@ -1323,16 +1334,19 @@ main () {
 				setbkcolor ( COLOR ( 192, 192, 192 ) );
 				setcolor ( BLUE );
 				outtextxy ( 775, 497, "Sub Total($)" );
+				test = 0;
 			}
 			for ( int i = 0; i < table_index; i++ ) {
 				Total ( i );
 			}
 			if ( posX >= 90 && posX <= 206 && posY >= 45 && posY <= 140 ) { // Cold
+				test = 1;
 				page = 1;
 				setactivepage ( page );
 				setvisualpage ( page );
 				clickCold ();
 			} else if ( posX >= 340 && posX <= 456 && posY >= 45 && posY <= 140 ) { // frappe
+				test = 1;
 				page = 3;
 				setactivepage ( page );
 				setvisualpage ( page );
@@ -1363,7 +1377,7 @@ main () {
 				tender ();
 			}
 		} else if ( page == 3 ) { // Frappe
-			if ( total == 0 ) {
+			if ( test == 1 ) {
 				setfillstyle ( SOLID_FILL, COLOR ( 192, 192, 192 ) );
 				bar ( 770, 35, 1040, 487 );
 				outtextxy ( 913, 497, "       " );
@@ -1376,16 +1390,19 @@ main () {
 				setbkcolor ( COLOR ( 192, 192, 192 ) );
 				setcolor ( BLUE );
 				outtextxy ( 775, 497, "Sub Total($)" );
+				test = 0;
 			}
 			for ( int i = 0; i < table_index; i++ ) {
 				Total ( i );
 			}
 			if ( posX >= 215 && posX <= 330 && posY >= 45 && posY <= 140 ) { // Hot
+				test = 1;
 				page = 2;
 				setactivepage ( page );
 				setvisualpage ( page );
 				clickHot ();
 			} else if ( posX >= 90 && posX <= 206 && posY >= 45 && posY <= 140 ) { // Cold
+				test = 1;
 				page = 1;
 				setactivepage ( page );
 				setvisualpage ( page );
@@ -1404,13 +1421,13 @@ main () {
 				strcpy ( product[ table_index ].productName, "Mocha Chip" );
 				beveragesize ( table_index, 15 );
 			} else if ( posX >= 374 && posX <= 480 && posY >= 166 && posY <= 255 ) { //Iced Cappuccino
-				strcpy ( product[ table_index ].productName, "Caramel Fra" );
+				strcpy ( product[ table_index ].productName, "Caramel F" );
 				beveragesize ( table_index, 16 );
 			} else if ( posX >= 493 && posX <= 598 && posY >= 166 && posY <= 255 ) { //Iced Chocolate
-				strcpy ( product[ table_index ].productName, "Vanilla Fra" );
+				strcpy ( product[ table_index ].productName, "Vanilla F" );
 				beveragesize ( table_index, 17 );
 			} else if ( posX >= 612 && posX <= 717 && posY >= 166 && posY <= 255 ) { //Iced Vanilla
-				strcpy ( product[ table_index ].productName, "Chocolate Fr" );
+				strcpy ( product[ table_index ].productName, "Chocolate F" );
 				beveragesize ( table_index, 18 );
 			} else if ( posX >= 650 && posX <= 758 && posY >= 530 && posY <= 620 ) { // tender
 				tender ();
